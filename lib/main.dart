@@ -3,6 +3,7 @@ import 'package:im_flutter_sdk/im_flutter_sdk.dart';
 /* pages */
 import 'pages/home/home.dart';
 import 'pages/login/em_login.dart';
+import 'pages/messages/em_message.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context) => const HomePage(),
         '/login': (context) => const EmLogin(),
+        '/message': (context) => const EmMessage(),
       },
     );
   }
@@ -106,6 +108,33 @@ class _MyHomePageState extends State<MyHomePage> {
         onOfflineMessageSyncFinish: () {},
       ),
     );
+    //消息状态监听
+    EMClient.getInstance.chatManager.addMessageEvent(
+      "UNIQUE_HANDLER_ID",
+      ChatMessageEvent(
+        // 收到成功回调之后，可以对发送的消息进行更新处理，或者其他操作。
+        onSuccess: (msgId, msg) {
+          print('onSuccess msgId: $msgId, msg: $msg');
+          // msgId 发送时消息 ID;
+          // msg 发送成功的消息;
+        },
+        // 收到回调之后，可以将发送的消息状态进行更新，或者进行其他操作。
+        onError: (msgId, msg, error) {
+          // msgId 发送时的消息 ID;
+          // msg 发送失败的消息;
+          // error 失败原因;
+          print('onError msgId: $msgId, msg: $msg, error: $error');
+        },
+        // 对于附件类型的消息，如图片，语音，文件，视频类型，上传或下载文件时会收到相应的进度值，表示附件的上传或者下载进度。
+        onProgress: (msgId, progress) {
+          // msgId 发送时的消息ID;
+          // progress 进度;
+          print('onProgress msgId: $msgId, progress: $progress');
+          // loading 进度条
+        },
+      ),
+    );
+
     // 消息监听
     final onMessageHandler = EMChatEventHandler(
       onMessagesReceived: (messages) => {

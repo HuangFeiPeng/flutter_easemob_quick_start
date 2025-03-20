@@ -6,10 +6,13 @@ PODS:
   - im_flutter_sdk (0.0.1):
     - Flutter
     - HyphenateChat (= 4.12.0)
+  - image_picker_ios (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - im_flutter_sdk (from `.symlinks/plugins/im_flutter_sdk/ios`)
+  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
 
 SPEC REPOS:
   trunk:
@@ -21,12 +24,15 @@ EXTERNAL SOURCES:
     :path: Flutter
   im_flutter_sdk:
     :path: ".symlinks/plugins/im_flutter_sdk/ios"
+  image_picker_ios:
+    :path: ".symlinks/plugins/image_picker_ios/ios"
 
 SPEC CHECKSUMS:
   AgoraInfra_iOS: 65e11a2183ab7836258768868d06058c22701b13
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   HyphenateChat: e3869321ba4e1b7e61f320a037935f3f4751e74a
   im_flutter_sdk: 51e72bf84ff475f8937a76a6e8ada8132dcb793b
+  image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 
