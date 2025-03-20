@@ -46,35 +46,10 @@ class _EmMessageState extends State<EmMessage> {
     ]);
   }
 
-  //发送消息
-  Widget _buildSendButtonCard() {
-    return Column(
-      children: [
-        const Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            '发送消息',
-            style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-          ),
-        ),
-        ElevatedButton(
-          onPressed: _sendTextMessage,
-          child: const Text('发送文本消息'),
-        ),
-        ElevatedButton(
-          onPressed: _sendImageMessage,
-          child: const Text('发送图片消息'),
-        ),
-      ],
-    );
-  }
-
   //发送文本消息
   void _sendTextMessage() async {
     print('sendTextMessage');
     // String _chatId = _targetIdController.text;
-
     //弹起可输入内容的对话框
     String? _messageContent;
     _messageContent = await showDialog(
@@ -143,6 +118,49 @@ class _EmMessageState extends State<EmMessage> {
     } catch (e) {
       print('pick image failed: ${e}');
     }
+  }
+
+  //发送自定义消息
+  void _sendCustomMessage() async {
+    //发送自定义消息
+    final msg = EMMessage.createCustomSendMessage(
+        targetId: _targetIdController.text,
+        event: 'customEvent',
+        chatType: _chatType,
+        params: {'testCustom': 'xiiixixixixi...'});
+    try {
+      await EMClient.getInstance.chatManager.sendMessage(msg);
+    } on EMError catch (e) {
+      print('send failed: ${e}');
+    }
+  }
+
+  //发送消息
+  Widget _buildSendButtonCard() {
+    return Column(
+      children: [
+        const Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            '发送消息',
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+        ),
+        ElevatedButton(
+          onPressed: _sendTextMessage,
+          child: const Text('发送文本消息'),
+        ),
+        ElevatedButton(
+          onPressed: _sendImageMessage,
+          child: const Text('发送图片消息'),
+        ),
+        ElevatedButton(
+          onPressed: _sendCustomMessage,
+          child: const Text('发送自定义消息'),
+        ),
+      ],
+    );
   }
 
   @override
